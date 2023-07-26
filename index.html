@@ -2,6 +2,61 @@
 <html>
 <head>
     <title>Speeds & Feeds Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 15px;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        /* Back link styles */
+        a {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h1>Speeds & Feeds Calculator</h1>
@@ -15,21 +70,18 @@
         <!-- Add more material options here -->
     </select>
 
-    <br><br>
-
     <label for="tool_diameter">Tool Diameter (inches):</label>
     <input type="number" id="tool_diameter" step="0.001" min="0.001" required>
-
-    <br><br>
 
     <label for="num_flutes">Number of Flutes:</label>
     <input type="number" id="num_flutes" min="1" required>
 
-    <br><br>
-
     <button onclick="calculateSpeedsAndFeeds()">Calculate</button>
 
     <div id="result"></div>
+
+    <!-- Back link -->
+    <a href="https://www.desk-depot-shop.github.io">Back</a>
 
     <script>
         function calculateSpeedsAndFeeds() {
