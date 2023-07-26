@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speeds & Feeds Calculator</title>
+</head>
+<body>
+    <h1>Speeds & Feeds Calculator</h1>
+
+    <label for="material">Select Material:</label>
+    <select id="material">
+        <option value="birch_plywood">Birch Plywood</option>
+        <option value="aluminum">Aluminum</option>
+        <option value="acrylic">Acrylic</option>
+        <option value="polycarbonate">Polycarbonate</option>
+        <!-- Add more material options here -->
+    </select>
+
+    <br><br>
+
+    <label for="tool_diameter">Tool Diameter (inches):</label>
+    <input type="number" id="tool_diameter" step="0.001" min="0.001" required>
+
+    <br><br>
+
+    <label for="num_flutes">Number of Flutes:</label>
+    <input type="number" id="num_flutes" min="1" required>
+
+    <br><br>
+
+    <button onclick="calculateSpeedsAndFeeds()">Calculate</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateSpeedsAndFeeds() {
+            const material = document.getElementById("material").value;
+            const toolDiameter = parseFloat(document.getElementById("tool_diameter").value);
+            const numFlutes = parseInt(document.getElementById("num_flutes").value);
+
+            let SFM;
+            let chipLoad;
+
+            // Implement your calculations here based on the chosen material, tool diameter, and number of flutes.
+            if (material === "birch_plywood") {
+                SFM = 360; // Use a typical SFM value for birch plywood
+                chipLoad = 0.005; // Use a typical chip load value for birch plywood
+            } else if (material === "aluminum") {
+                SFM = 800; // Use a typical SFM value for aluminum
+                chipLoad = 0.002; // Use a typical chip load value for aluminum
+            } else if (material === "acrylic") {
+                SFM = 500; // Use a typical SFM value for acrylic
+                chipLoad = 0.003; // Use a typical chip load value for acrylic
+            } else if (material === "polycarbonate") {
+                SFM = 400; // Use a typical SFM value for polycarbonate
+                chipLoad = 0.003; // Use a typical chip load value for polycarbonate
+            } else {
+                // Handle other material options here or show an error message if material is not selected
+                return;
+            }
+
+            const spindleSpeed = (SFM * 12) / (Math.PI * toolDiameter);
+            const roundedSpindleSpeed = Math.round(spindleSpeed / 500) * 500;
+            const feedRate = roundedSpindleSpeed * numFlutes * chipLoad;
+
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = `Calculated speeds and feeds:<br>
+                Spindle Speed (RPM): ${roundedSpindleSpeed}<br>
+                Feed Rate (IPM): ${feedRate.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
