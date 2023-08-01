@@ -56,6 +56,9 @@
         a:hover {
             color: #0056b3;
         }
+        .selected {
+            background-color: #007BFF;
+        }
     </style>
 </head>
 <body>
@@ -91,35 +94,30 @@
 
             let SFM;
             let chipLoad;
-            let passDepth;
             let stepOverPercentage;
-            let plungeRate;
+            let plungePercent;
 
             // Implement your calculations here based on the chosen material, tool diameter, and number of flutes.
             if (material === "birch_plywood") {
-                SFM = 800; // Use a typical SFM value for birch plywood
+                SFM = 360; // Use a typical SFM value for birch plywood
                 chipLoad = 0.005; // Use a typical chip load value for birch plywood
-                passDepth = 0.05; // Placeholder value for pass depth in inches
                 stepOverPercentage = 50; // Placeholder value for step over percentage
-                plungeRate = 10; // Placeholder value for plunge rate in inches per minute
+                plungePercent = 30; // Placeholder value for plunge rate percentage
             } else if (material === "aluminum") {
                 SFM = 800; // Use a typical SFM value for aluminum
                 chipLoad = 0.002; // Use a typical chip load value for aluminum
-                passDepth = 0.03; // Placeholder value for pass depth in inches
                 stepOverPercentage = 30; // Placeholder value for step over percentage
-                plungeRate = 8; // Placeholder value for plunge rate in inches per minute
+                plungePercent = 8; // Placeholder value for plunge rate percentage
             } else if (material === "acrylic") {
                 SFM = 500; // Use a typical SFM value for acrylic
                 chipLoad = 0.003; // Use a typical chip load value for acrylic
-                passDepth = 0.04; // Placeholder value for pass depth in inches
                 stepOverPercentage = 40; // Placeholder value for step over percentage
-                plungeRate = 12; // Placeholder value for plunge rate in inches per minute
+                plungePercent = 12; // Placeholder value for plunge rate percentage
             } else if (material === "polycarbonate") {
                 SFM = 400; // Use a typical SFM value for polycarbonate
                 chipLoad = 0.003; // Use a typical chip load value for polycarbonate
-                passDepth = 0.02; // Placeholder value for pass depth in inches
                 stepOverPercentage = 25; // Placeholder value for step over percentage
-                plungeRate = 6; // Placeholder value for plunge rate in inches per minute
+                plungePercent = 6; // Placeholder value for plunge rate percentage
             } else {
                 // Handle other material options here or show an error message if material is not selected
                 return;
@@ -128,6 +126,8 @@
             const spindleSpeed = (SFM * 12) / (Math.PI * toolDiameter);
             const roundedSpindleSpeed = Math.round(spindleSpeed / 500) * 500;
             const feedRate = roundedSpindleSpeed * numFlutes * chipLoad;
+            const passDepth = toolDiameter
+            const plungeRate = Math.floor(feedRate*plungePercent/100);
 
             const resultElement = document.getElementById("result");
             resultElement.innerHTML = `
@@ -137,11 +137,6 @@
                 Pass Depth (inches): ${passDepth}<br>
                 Step Over Percentage: ${stepOverPercentage}%<br>
                 Plunge Rate (inches per minute): ${plungeRate}`;
-        }
-
-        // Function to navigate back
-        function goBack() {
-            window.history.back();
         }
     </script>
 </body>
